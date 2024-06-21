@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Todo.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+</head>
+
+<body>
+    <div class="container is-dark" style="background-color: lightslategray; height: 1000px;">
+        <div style="width: 500px; height: 100px; margin: auto;">
+            <div class="m-auto" style=" background-color: royalblue; margin-bottom: 30px;">
+                <header style="height: 100px; font-size: 50px; color: #0015C3;">
+                    <p class="mx-auto">My Todo List</p>
+                </header>
+
+            </div>
+            <section style="display: 30px;">
+                <div id="tasks"></div>
+                <!-- <div id="content"></div> -->
+                <input class="input is-link" type="text" name="todo" placeholder="What's next?" id="input" style="border-radius: 50px;"><br>
+                <button class="button is-link is-outlined " onclick="addTask()">Add task</button>
+            </section>
+            
+        </div>
+    </div>
+
+    <script>
+        const tasks = [];
+
+        function deleteTask(position) {
+            if (confirm("Are u sure?")) {
+                tasks.splice(position, 1);
+                render();
+            }
+        }
+
+
+        // function editTask(position) {
+        //     const name = prompt("Edit task");
+        //     render();
+        // }
+        
+        
+        function addTask() {
+            const input = document.getElementById("input")
+            console.log(input.value);
+            tasks.push (input.value);
+            render();
+        }
+
+
+
+        function render() {
+            let tasksHtml = "";
+            for (let i = 0; i < tasks.length; i++) {
+                const oneTask =`
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="is-flex is-align-items-center is-justify-content-space-between">
+                                            <div>${tasks[i]}</div>
+                                            <div class="buttons">
+                                                <button class="button is-small is-outlined is-danger" onclick="deleteTask(${i})">Delete</button>
+                                                <button class="button is-small is-outlined is-success" onclick="editTask(${i})">Edit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                `;
+                tasksHtml += oneTask;
+            }
+
+
+
+            document.getElementById("tasks").innerHTML = tasksHtml;
+        }
+        render();
+
+
+
+        
+    </script>
+</body>
+
+</html>
+<!-- <label class="checkbox">
+    <input type="checkbox" />
+    Remember me
+</label> -->
+
+<!-- function addTask() {
+    const input = document.getElementById("input")
+    console.log(input.value);
+    content.innerHTML = content.innerHTML + "<div>" + input.value + "</div>";
+} -->
